@@ -22,7 +22,6 @@ let addNewIdea = () => {
   newHeading.innerText = document.getElementById("addIdeaName").value;
   contentDiv.appendChild(newParagraph);
   newParagraph.innerText = document.getElementById("addIdeaDescription").value;
-  //contentDiv.innerHTML ="<h2>" + newHeading.value + "</h2><p>" + newParagraph.value + "</p>";//fonctionne
 };
 
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
