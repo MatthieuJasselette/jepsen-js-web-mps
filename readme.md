@@ -1,4 +1,8 @@
 
+# js-web-group
+
+This is the repo of the Malevolant Projects Society.
+
 # Becode Template for JavaScript Exercises
 
 Hello ! This is a simple template to use in Becode's JavaScript exercises.
