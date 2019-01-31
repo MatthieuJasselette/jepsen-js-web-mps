@@ -6,13 +6,14 @@
 
     <title>BeCode/JavaScript for the Web Exercise</title>
 
-    <link rel="icon" href="./_shared/img/becode-seal.png" />
+      <link rel="icon" href="Images/MPS logo.jpg">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
       integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
       crossorigin="anonymous">
+
 
   </head>
   <body>
@@ -27,40 +28,44 @@
         <p>
           <i class="fas fa-arrow-right"></i> List of ideas to take over the world <i class="fas fa-arrow-left"></i>
         </p>
-        <div class="idBox" id="idBox">
-          <!-- idea list goes here -->
 
-        </div>
-        <div class="modal-button">
-          <button class ="newButton" type="button" data-toggle="modal" data-target="#exampleModal" name="add" id ="addButton">Add an Idea</button>
-          <!-- button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" -->
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add your idea</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <!-- modal content goes here -->
-                <label for="addIdeaName">Name of your project
-                  <input type="text" id="addIdeaName" value="">
-                </label>
-                <label for="addIdeaDescription">Describe your project
-                  <input type="text" id="addIdeaDescription" value="">
-                </label>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit your project</button>
+        <div class="">
+          <div class="ideaBox" id="ideaBox">
+          <!-- Projects go here -->
+          </div>
+          <div class="modal-button">
+            <button class ="newButton" type="button" data-toggle="modal" data-target="#exampleModal" name="add" id ="addButton">Add an Idea</button>
+            <img class="logo-mps-anous" src="Images/MPS logo2.jpg" alt="">
+            <!-- button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" -->
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add your idea</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- modal content goes here -->
+                  <label for="addIdeaName">Name of your project
+                    <input type="text" id="addIdeaName" value="">
+                  </label>
+                  <label for="addIdeaDescription">Describe your project
+                    <input type="text" id="addIdeaDescription" value="">
+                  </label>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Submit your project</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 

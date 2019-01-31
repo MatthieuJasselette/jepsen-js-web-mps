@@ -15,7 +15,7 @@ import "./style.scss";
 console.log("Hey look in your browser console. It works!");
 
 let addNewIdea = () => {
-  let contentDiv = document.getElementById("idBox");
+  let contentDiv = document.getElementById("ideaBox");
   let newHeading = document.createElement("h2");
   let newParagraph = document.createElement("p");
   contentDiv.appendChild(newHeading);

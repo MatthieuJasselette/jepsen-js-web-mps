@@ -9,3 +9,12 @@
 
 # Coffe sabotage  
 *Replace as much coffee grounds by a mix of dirt and salt as possible*
+
+# Get married with a rich girl
+*Paris hilton or a girl like this, ask her a little money to make a startup*
+
+# Win to the lottery
+*It's the best way to get rich without hurt anybody*
+
+# Invent a new coding language
+*do something secure and universal, something accessible for everyones*
