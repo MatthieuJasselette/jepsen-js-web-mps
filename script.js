@@ -17,14 +17,11 @@ console.log("Hey look in your browser console. It works!");
 let addNewIdea = () => {
   let contentDiv = document.getElementById("idBox");
   let newHeading = document.createElement("h2");
-  newHeading.setAttribute("id", "ideaName");
-  newHeading.value = document.getElementById("addIdeaName").value;
   let newParagraph = document.createElement("p");
-  newParagraph.id = "ideaDescription";
-  newParagraph.value = document.getElementById("addIdeaDescription").value;
-  contentDiv.appendChild(newHeading);//computer says no
-  contentDiv.appendChild(newParagraph);//computer says no
-
+  contentDiv.appendChild(newHeading);
+  newHeading.innerText = document.getElementById("addIdeaName").value;
+  contentDiv.appendChild(newParagraph);
+  newParagraph.innerText = document.getElementById("addIdeaDescription").value;
   //contentDiv.innerHTML ="<h2>" + newHeading.value + "</h2><p>" + newParagraph.value + "</p>";//fonctionne
 };
 
