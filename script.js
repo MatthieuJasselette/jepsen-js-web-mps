@@ -14,14 +14,20 @@ import "./style.scss";
 
 let addNewIdea = () => {
   let contentDiv = document.getElementById("ideaBox");
+  let ideaDiv = document.createElement("div");
+  ideaDiv.className = "ideaElement";
   let newHeading = document.createElement("h2");
   let newParagraph = document.createElement("p");
-  contentDiv.appendChild(newHeading);
+  contentDiv.appendChild(ideaDiv);
+  ideaDiv.appendChild(newHeading);
   newHeading.innerText = document.getElementById("addIdeaName").value;
-  contentDiv.appendChild(newParagraph);
+  ideaDiv.appendChild(newParagraph);
   newParagraph.innerText = document.getElementById("addIdeaDescription").value;
 };
 
+let ideaStorage = [];
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
+  document.getElementById("addIdeaName").value = '';
+  document.getElementById("addIdeaDescription").value = '';
 });
