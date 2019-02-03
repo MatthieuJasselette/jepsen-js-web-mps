@@ -12,8 +12,6 @@ import "./style.scss";
   Put the JavaScript code you want below.
 */
 
-console.log("Hey look in your browser console. It works!");
-
 let addNewIdea = () => {
   let contentDiv = document.getElementById("ideaBox");
   let newHeading = document.createElement("h2");
