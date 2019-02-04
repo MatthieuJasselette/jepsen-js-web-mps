@@ -14,14 +14,11 @@ import "./style.scss";
 
 let addNewIdea = () => {
   let contentDiv = document.getElementById("ideaBox");
-  let ideaDiv = document.createElement("div");
-  ideaDiv.className = "ideaElement";
   let newHeading = document.createElement("h2");
   let newParagraph = document.createElement("p");
-  contentDiv.appendChild(ideaDiv);
-  ideaDiv.appendChild(newHeading);
+  contentDiv.appendChild(newHeading);
   newHeading.innerText = document.getElementById("addIdeaName").value;
-  ideaDiv.appendChild(newParagraph);
+  contentDiv.appendChild(newParagraph);
   newParagraph.innerText = document.getElementById("addIdeaDescription").value;
 };
 
@@ -36,7 +33,6 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
 let updateLocalStorage = () => {
   localStorage.clear();
   let ideaStorage = [];
-
   let setTitleArray = () => {
     let childIdeaTitle = document.getElementById('ideaBox').getElementsByTagName('h2');
     for( let i = 0; i < childIdeaTitle.length; i++) {
@@ -64,7 +60,32 @@ let updateLocalStorage = () => {
   };
 };
 
-  console.log(localStorage);
+
 window.addEventListener("beforeunload", () => {
   updateLocalStorage()
 });
+
+
+let importLocalStorage = () => {
+  let localStorageTitle = [];
+  let localStorageDescription = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    localStorageTitle.push (localStorage.key(i));
+    localStorageDescription.push (localStorage.getItem(localStorage.key(i)));
+  }
+
+  for (let i = 0; i < localStorageTitle.length; i++) {
+    let contentDiv = document.getElementById("ideaBox");
+    let newHeading = document.createElement("h2");
+    let newParagraph = document.createElement("p");
+    contentDiv.appendChild(newHeading);
+    newHeading.innerText = localStorageTitle[i];
+    contentDiv.appendChild(newParagraph);
+    newParagraph.innerText = localStorageDescription[i];
+  }
+};
+
+window.onload = function() {
+  importLocalStorage();
+} ;
