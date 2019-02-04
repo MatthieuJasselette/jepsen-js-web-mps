@@ -34,12 +34,16 @@
           <!-- Projects go here -->
           </div>
           <div class="modal-button">
+            <!-- bouton pour appeler la modale addIdea -->
             <button class ="newButton" type="button" data-toggle="modal"
               data-target="#exampleModal" name="add" id ="addButton">Add an Idea</button>
+            <!-- bonton pour appeler la modale display -->
+            <!-- <button class ="newButton" type="button" data-toggle="modal"
+              data-target="#displayModal" name="display" id ="displayButton">Display an Idea</button> -->
             <img class="logo-mps-anous" src="Images/MPS logo2.jpg" alt="">
             <!-- button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" -->
           </div>
-          <!-- Modal -->
+          <!-- début de la modale addIdea -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -66,6 +70,30 @@
               </div>
             </div>
           </div>
+          <!-- fin de la modale addIdea-->
+          <!-- début de la modale displayIdea -->
+          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog"
+            aria-labelledby="displayModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="displayModalLabel">Add your idea</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- modal content goes here -->
+                <p>Display projects here</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Edit your project</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- fin de la modale displayIdea-->
         </div>
 
       </div>
