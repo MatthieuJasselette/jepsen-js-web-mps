@@ -84,14 +84,17 @@
                 </div>
                 <div class="modal-body">
                   <!-- modal content goes here -->
-                  <p>Display projects name here</p>
-                  <p>Display projects description here</p>
+                  <div  id="displayBox">
+                  <!-- contenu généré dynamiquement -->
+                    <h5 id="displayName"></h5>
+                    <p id="displayDescription"></p>
+                  </div>
                   <div class="commentBox" id="commentBox">
-                </div>
-                <label for="commentIdea">Comment this project
-                  <input type="text" id="commentIdea" value="">
-                  <button type="button" class="commentButton" name="button">Submit your comment</button>
-                </label>
+                    <label for="commentIdea">Comment this project
+                      <input type="text" id="commentIdea" value="">
+                      <button type="button" class="commentButton" name="button">Submit your comment</button>
+                    </label>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
