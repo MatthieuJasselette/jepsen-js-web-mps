@@ -15,6 +15,7 @@ import "./style.scss";
 //Arrays pour stocker les éléments
 let headingArray = [];
 let paragraphArray = [];
+let commentArray = [];
 
 //fonctionne /intégrer les éléments à un array.
 let addNewIdea = () => {
@@ -47,24 +48,32 @@ let displayProject = (index) => {
   document.getElementById("displayDescription").innerText = paragraphArray[index];
 };
 
+// let editProject = (index) => {
+//   document.getElementById("displayBox").innerHTML = '<input type="text" id="editHeading" value="'headingArray[index]'">','<input type="text" id="editDescription" value="p'aragraphArray[index]'">';
+// };
+
 //fonctionne
 let addComment = () => {
   let commentDiv = document.getElementById("commentBox");
   let newComment = document.createElement("p");
   commentDiv.appendChild(newComment);
   newComment.innerText = document.getElementById("commentIdea").value;
-}
+};
 
 let ideaStorage = [];
 
-//code pour ajouter un projet
+//code du bouton pour appeler addNewIdea
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
   document.getElementById("addIdeaName").value = '';
   document.getElementById("addIdeaDescription").value = '';
 });
 
-//code pour ajouter un commentaire
+//code du bouton pour appeler editProject
+document.getElementsByClassName("editButton")[0].addEventListener('click', () => {
+  editProject();
+});
+//code du bouton pour appeler addComment
 document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
   addComment();
   document.getElementById("commentIdea").value = '';
