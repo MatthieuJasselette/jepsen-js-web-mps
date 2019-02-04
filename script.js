@@ -25,9 +25,46 @@ let addNewIdea = () => {
   newParagraph.innerText = document.getElementById("addIdeaDescription").value;
 };
 
-let ideaStorage = [];
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
   document.getElementById("addIdeaName").value = '';
   document.getElementById("addIdeaDescription").value = '';
+});
+
+
+
+let updateLocalStorage = () => {
+  localStorage.clear();
+  let ideaStorage = [];
+
+  let setTitleArray = () => {
+    let childIdeaTitle = document.getElementById('ideaBox').getElementsByTagName('h2');
+    for( let i = 0; i < childIdeaTitle.length; i++) {
+      ideaStorage.push(childIdeaTitle[i].innerText)
+    };
+    return ideaStorage;
+  };
+
+  let descriptionStorage = [];
+
+  let setDescriptionArray = () => {
+    let childIdeaDescription = document.getElementById('ideaBox').getElementsByTagName('p');
+    for( let i = 0; i < childIdeaDescription.length; i++) {
+      descriptionStorage.push(childIdeaDescription[i].innerText)
+    };
+    return descriptionStorage;
+  };
+
+  setTitleArray();
+  setDescriptionArray();
+
+
+  for (let i = 0; i < ideaStorage.length; i++) {
+    localStorage.setItem(ideaStorage[i], descriptionStorage[i]);
+  };
+};
+
+  console.log(localStorage);
+window.addEventListener("beforeunload", () => {
+  updateLocalStorage()
 });
