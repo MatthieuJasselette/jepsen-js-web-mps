@@ -41,12 +41,15 @@ let addComment = () => {
 //   data-target="#displayModal" name="display" id ="displayButton"></button>
 
 let ideaStorage = [];
+
+//code pour ajouter un projet
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
   document.getElementById("addIdeaName").value = '';
   document.getElementById("addIdeaDescription").value = '';
 });
 
+//code pour ajouter un commentaire
 document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
   addComment();
   document.getElementById("commentIdea").value = '';
