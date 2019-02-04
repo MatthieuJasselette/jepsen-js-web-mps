@@ -31,6 +31,12 @@ let addNewIdea = () => {
   newParagraph.innerText = document.getElementById("addIdeaDescription").value;
 };
 
+let addComment = () => {
+  let commentDiv = document.getElementById("commentBox");
+  let newComment = document.createElement("p");
+  commentDiv.appendChild(newComment)
+  newComment.innerText = document.getElementById("commentIdea").value;
+}
 // <button class ="newButton" type="button" data-toggle="modal"
 //   data-target="#displayModal" name="display" id ="displayButton"></button>
 
@@ -39,4 +45,9 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
   addNewIdea();
   document.getElementById("addIdeaName").value = '';
   document.getElementById("addIdeaDescription").value = '';
+});
+
+document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
+  addComment();
+  document.getElementById("commentIdea").value = '';
 });
