@@ -21,30 +21,35 @@ let commentArray = [];
 
 //fonctionne /intégrer les éléments à un array.
 let addNewIdea = () => {
-  let projectNumber = headingArray.length;
-  headingArray.push(document.getElementById("addIdeaName").value);
-  paragraphArray.push(document.getElementById("addIdeaDescription").value)
-  let contentDiv = document.getElementById("ideaBox");
-  let ideaDiv = document.createElement("div");
-    ideaDiv.className = "ideaElement";
-  let newHeading = document.createElement("button");
-    newHeading.className = "newButton displayHeading"; //sert pour retrouver les éléments et les modifier dans la page
-    newHeading.setAttribute("type", "button");
-    newHeading.setAttribute("data-toggle", "modal");
-    newHeading.setAttribute("data-target", "#displayModal");
-    newHeading.setAttribute("name", "display");
-    //newHeading.setAttribute("id", "idHeading"+projectNumber);
-    newHeading.onclick = () => {
-      displayProject(projectNumber);
-    };
-  let newParagraph = document.createElement("p");
-    newParagraph.className = "displayParagraph"; //sert pour retrouver les éléments et les modifier dans la page
-    //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
-  contentDiv.appendChild(ideaDiv);
-    ideaDiv.appendChild(newHeading);
-      newHeading.innerText = headingArray[projectNumber];
-    ideaDiv.appendChild(newParagraph);
-      newParagraph.innerText = paragraphArray[projectNumber];
+    /*if (document.getElementById("addIdeaName").value === null ){
+      return;
+    } else {*/
+      let projectNumber = headingArray.length;
+      headingArray.push(document.getElementById("addIdeaName").value);
+      paragraphArray.push(document.getElementById("addIdeaDescription").value)
+      let contentDiv = document.getElementById("ideaBox");
+      let ideaDiv = document.createElement("div");
+        ideaDiv.className = "ideaElement";
+      let newHeading = document.createElement("button");
+        newHeading.className = "newButton displayHeading"; //sert pour retrouver les éléments et les modifier dans la page
+        newHeading.setAttribute("type", "button");
+        newHeading.setAttribute("data-toggle", "modal");
+        newHeading.setAttribute("data-target", "#displayModal");
+        newHeading.setAttribute("name", "display");
+        //newHeading.setAttribute("id", "idHeading"+projectNumber);
+        newHeading.onclick = () => {
+          //ouvrir modale ?
+         displayProject(projectNumber);
+        };
+      let newParagraph = document.createElement("p");
+        newParagraph.className = "displayParagraph"; //sert pour retrouver les éléments et les modifier dans la page
+        //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
+      contentDiv.appendChild(ideaDiv);
+        ideaDiv.appendChild(newHeading);
+          newHeading.innerText = headingArray[projectNumber];
+        ideaDiv.appendChild(newParagraph);
+          newParagraph.innerText = paragraphArray[projectNumber];
+    /*}*/
 };
 
 
@@ -93,13 +98,12 @@ let removeProject = (index) => {
   let removeTarget = document.getElementsByClassName("ideaElement")[index]
   //fonctionne
   removeTarget.parentNode.removeChild(removeTarget);
-
   let ideas = document.getElementsByClassName("ideaElement");
   for(let i = index ; i < ideas.length ; i++) {
-    ideas[index].querySelector("button").onclick = () => {
+    ideas[i].querySelector("button").onclick = () => {
       displayProject(i);
     };
-  };
+  }
 };
 
 /*code à Alex qui retire les éléments d'une modale.
@@ -107,6 +111,7 @@ let element = document.querySelector("#displayBox"); while (element.firstChild) 
 
 //fonctionne
 let addComment = () => {
+  //commentArray.push() ;
   let commentDiv = document.getElementById("commentBox");
   let newComment = document.createElement("p");
   commentDiv.appendChild(newComment);
@@ -118,8 +123,8 @@ let ideaStorage = [];
 //code du bouton pour appeler addNewIdea
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
-  document.getElementById("addIdeaName").value = '';
-  document.getElementById("addIdeaDescription").value = '';
+  document.getElementById("addIdeaName").value = null;
+  document.getElementById("addIdeaDescription").value = null;
 });
 
 //code du bouton pour appeler addComment
