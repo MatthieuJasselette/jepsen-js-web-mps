@@ -12,6 +12,8 @@ import "./style.scss";
   Put the JavaScript code you want below.
 */
 
+
+// Fait apparaître la modale qui permet d'ajouter une idée.
 let addNewIdea = () => {
   let contentDiv = document.getElementById("ideaBox");
   let newHeading = document.createElement("h2");
@@ -29,43 +31,37 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
 });
 
 
-
+//  Fction pour clear le local storage et réenregistrer les éléments présents sur la page.
 let updateLocalStorage = () => {
   localStorage.clear();
+
   let ideaStorage = [];
-  let setTitleArray = () => {
-    let childIdeaTitle = document.getElementById('ideaBox').getElementsByTagName('h2');
-    for( let i = 0; i < childIdeaTitle.length; i++) {
+  let childIdeaTitle = document.getElementById('ideaBox').getElementsByTagName('h2');
+  let descriptionStorage = [];
+  let childIdeaDescription = document.getElementById('ideaBox').getElementsByTagName('p');
+
+
+  for( let i = 0; i < childIdeaTitle.length; i++) {
       ideaStorage.push(childIdeaTitle[i].innerText)
     };
-    return ideaStorage;
-  };
 
-  let descriptionStorage = [];
-
-  let setDescriptionArray = () => {
-    let childIdeaDescription = document.getElementById('ideaBox').getElementsByTagName('p');
-    for( let i = 0; i < childIdeaDescription.length; i++) {
+  for( let i = 0; i < childIdeaDescription.length; i++) {
       descriptionStorage.push(childIdeaDescription[i].innerText)
     };
-    return descriptionStorage;
-  };
-
-  setTitleArray();
-  setDescriptionArray();
-
 
   for (let i = 0; i < ideaStorage.length; i++) {
     localStorage.setItem(ideaStorage[i], descriptionStorage[i]);
   };
 };
 
-
+// Update du local storage uniquement lorsqu'on quitte ou reload la page.
 window.addEventListener("beforeunload", () => {
   updateLocalStorage()
 });
 
 
+
+//Fonction pour importer le localStorage dans la div IdeaBox
 let importLocalStorage = () => {
   let localStorageTitle = [];
   let localStorageDescription = [];
@@ -74,18 +70,22 @@ let importLocalStorage = () => {
     localStorageTitle.push (localStorage.key(i));
     localStorageDescription.push (localStorage.getItem(localStorage.key(i)));
   }
-
-  for (let i = 0; i < localStorageTitle.length; i++) {
-    let contentDiv = document.getElementById("ideaBox");
-    let newHeading = document.createElement("h2");
-    let newParagraph = document.createElement("p");
-    contentDiv.appendChild(newHeading);
-    newHeading.innerText = localStorageTitle[i];
-    contentDiv.appendChild(newParagraph);
-    newParagraph.innerText = localStorageDescription[i];
+  if (localStorage.length > 0) {
+    for (let i = 0; i < localStorageTitle.length; i++) {
+      let contentDiv = document.getElementById("ideaBox");
+      let newHeading = document.createElement("h2");
+      let newParagraph = document.createElement("p");
+      contentDiv.appendChild(newHeading);
+      newHeading.innerText = localStorageTitle[i];
+      contentDiv.appendChild(newParagraph);
+      newParagraph.innerText = localStorageDescription[i];
+    }
+  } else {
+    return;
   }
 };
-
+localStorage.clear();
+// Import du local storage se lance au load de la fenêtre.
 window.onload = function() {
   importLocalStorage();
 } ;
