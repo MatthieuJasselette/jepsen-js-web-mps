@@ -31,10 +31,13 @@ let addNewIdea = () => {
     newHeading.setAttribute("data-toggle", "modal");
     newHeading.setAttribute("data-target", "#displayModal");
     newHeading.setAttribute("name", "display");
+    //newHeading.setAttribute("id", "idHeading"+projectNumber);
     newHeading.addEventListener('click', () => {
       displayProject(projectNumber);
     });
   let newParagraph = document.createElement("p");
+    newParagraph.className = "displayParagraph";
+    //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
   contentDiv.appendChild(ideaDiv);
     ideaDiv.appendChild(newHeading);
       newHeading.innerText = headingArray[projectNumber];
@@ -42,27 +45,39 @@ let addNewIdea = () => {
       newParagraph.innerText = paragraphArray[projectNumber];
 };
 
+
 //fonctionne
 let displayProject = (index) => {
-  document.getElementById("displayName").innerText = headingArray[index] ;
+  //remplit les champs vides de la modale
+  document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerText = paragraphArray[index];
+  //code du bouton pour appeler openEditProject
+  document.getElementsByClassName("openEditButton")[0].onclick = () => {
+    openEditProject(index);
+  };
+  //code du bouton pour appeler closeEditProject
+  document.getElementsByClassName("closeEditButton")[0].onclick = () => {
+    closeEditProject(index);
+  };
 };
 
+//code du bouton "Edit your project"
 let openEditProject = (index) => {
-  let editHeading = headingArray[index];
-  let editDescription = paragraphArray[index];
-  document.getElementById("displayBox").innerHTML = '<input type="text" id="editHeading" value="editHeading"><br><input type="text" id="editDescription" value="editDescription">';
-  //changer le bouton / ne fonctionne pas
-  document.getElementsByClassName("openEditButton").setAttribute("class", "closeEditButton");
-  document.getElementsByClassName("openEditButton").innerText = 'Submit your edited project';
+  document.getElementById("displayName").innerHTML = '<input type="text" id="editHeading" value="'+headingArray[index]+'">';
+  document.getElementById("displayDescription").innerHTML = '<input type="text" id="editDescription" value="'+paragraphArray[index]+'">';
 };
 
+
+//code du bouton "Submit your edited project"
 let closeEditProject = (index) => {
-  headingArray.push("input1");
-  paragraphArray.push("input2")
+  headingArray[index] = document.getElementById("editHeading").value;
+  paragraphArray[index] = document.getElementById("editDescription").value;
+  document.getElementById("displayBox").innerHTML = '<h5 id="displayName"></h5>  <p id="displayDescription"></p>'
+  document.getElementById("displayName").innerText = headingArray[index];
+  document.getElementById("displayDescription").innerText = paragraphArray[index];
   displayProject(index);
-  //changer le bouton
-  document.getElementsByClassName("closeEditButton").innerHtml = '<button type="button" class="openEditButton">Edit your project</button>';
+  document.getElementsByClassName("displayButton")[index].innerText = headingArray[index];
+  document.getElementsByClassName("displayParagraph")[index].innerText = paragraphArray[index]
 }
 
 /*code à Alex qui retire les éléments d'une modale.
@@ -92,11 +107,11 @@ document.getElementsByClassName("commentButton")[0].addEventListener('click', ()
 });
 
 //code du bouton pour appeler openEditProject
-document.getElementsByClassName("openEditButton")[0].addEventListener('click', () => {
-  openEditProject();
-});
+// document.getElementsByClassName("openEditButton")[0].addEventListener('click', () => {
+//   openEditProject();
+// });
 
-//code du bouton pour appeler closeEditProject
+// //code du bouton pour appeler closeEditProject
 // document.getElementsByClassName("closeEditButton")[0].addEventListener('click', () => {
 //   closeEditProject();
 // });
