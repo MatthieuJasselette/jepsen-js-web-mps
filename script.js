@@ -35,11 +35,11 @@ let addNewIdea = () => {
       displayProject(projectNumber);
     });
   let newParagraph = document.createElement("p");
-    contentDiv.appendChild(ideaDiv);
-  ideaDiv.appendChild(newHeading);
-  newHeading.innerText = headingArray[projectNumber];
-  ideaDiv.appendChild(newParagraph);
-  newParagraph.innerText = paragraphArray[projectNumber];
+  contentDiv.appendChild(ideaDiv);
+    ideaDiv.appendChild(newHeading);
+      newHeading.innerText = headingArray[projectNumber];
+    ideaDiv.appendChild(newParagraph);
+      newParagraph.innerText = paragraphArray[projectNumber];
 };
 
 //fonctionne
@@ -48,9 +48,25 @@ let displayProject = (index) => {
   document.getElementById("displayDescription").innerText = paragraphArray[index];
 };
 
-// let editProject = (index) => {
-//   document.getElementById("displayBox").innerHTML = '<input type="text" id="editHeading" value="'headingArray[index]'">','<input type="text" id="editDescription" value="p'aragraphArray[index]'">';
-// };
+let openEditProject = (index) => {
+  let editHeading = headingArray[index];
+  let editDescription = paragraphArray[index];
+  document.getElementById("displayBox").innerHTML = '<input type="text" id="editHeading" value="editHeading"><br><input type="text" id="editDescription" value="editDescription">';
+  //changer le bouton / ne fonctionne pas
+  document.getElementsByClassName("openEditButton").setAttribute("class", "closeEditButton");
+  document.getElementsByClassName("openEditButton").innerText = 'Submit your edited project';
+};
+
+let closeEditProject = (index) => {
+  headingArray.push("input1");
+  paragraphArray.push("input2")
+  displayProject(index);
+  //changer le bouton
+  document.getElementsByClassName("closeEditButton").innerHtml = '<button type="button" class="openEditButton">Edit your project</button>';
+}
+
+/*code à Alex qui retire les éléments d'une modale.
+let element = document.querySelector("#displayBox"); while (element.firstChild) { element.removeChild(element.firstChild); }*/
 
 //fonctionne
 let addComment = () => {
@@ -69,13 +85,18 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
   document.getElementById("addIdeaDescription").value = '';
 });
 
-//code du bouton pour appeler editProject
-document.getElementsByClassName("editButton")[0].addEventListener('click', () => {
-  editProject();
-});
 //code du bouton pour appeler addComment
 document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
   addComment();
   document.getElementById("commentIdea").value = '';
 });
+
+//code du bouton pour appeler openEditProject
+document.getElementsByClassName("openEditButton")[0].addEventListener('click', () => {
+  openEditProject();
+});
+
+//code du bouton pour appeler closeEditProject
+// document.getElementsByClassName("closeEditButton")[0].addEventListener('click', () => {
+//   closeEditProject();
 // });
