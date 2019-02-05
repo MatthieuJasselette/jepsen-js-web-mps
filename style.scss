@@ -9,9 +9,35 @@
 */
 
 .logo-mps-anous {
-  width: 300px;
+  width: 140px;
   height: auto;
   margin-left: 22%;
   margin-right: auto;
-  opacity: 0.42;
+  opacity: 0.32;
+  float: right;
+}
+.content{
+  background-image: url(https://hdwallpaperim.com/wp-content/uploads/2017/08/24/111340-horror-skull-death-748x420.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 1120px;
+  height: 700px;
+}
+.up{
+  color: #ff9933;
+  font-size: 30px;
+}
+.titre{
+  color:#ff9933;
+}
+.paragrahe{
+  color:#ff8000;
+}
+.ideaBox{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
