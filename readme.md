@@ -2,7 +2,8 @@
 # js-web-group
 
 This is the repo of the Malevolant Projects Society.
-You can find our site following this [link](https://becodeorg.github.io/jepsen-js-web-mps/)
+You can find our site following this [link](https://becodeorg.github.io/jepsen-js-web-mps/)  
+*MPS Picture courtesy of https://www.spectaculum.de/)*
 
 # Becode Template for JavaScript Exercises
 
