@@ -7,6 +7,8 @@ import 'bootstrap';
 
 // import the style
 import "./style.scss";
+//import markdown
+import {markdown} from 'markdown';
 
 /*
   Put the JavaScript code you want below.
@@ -17,11 +19,13 @@ import "./style.scss";
 let addNewIdea = () => {
   let contentDiv = document.getElementById("ideaBox");
   let newHeading = document.createElement("h2");
+  newHeading.className = "titre";
   let newParagraph = document.createElement("p");
+  newParagraph.className = "paragrahe";
   contentDiv.appendChild(newHeading);
   newHeading.innerText = document.getElementById("addIdeaName").value;
   contentDiv.appendChild(newParagraph);
-  newParagraph.innerText = document.getElementById("addIdeaDescription").value;
+  newParagraph.innerHTML = markdown.toHTML(document.getElementById("addIdeaDescription").value);
 };
 
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
@@ -36,9 +40,9 @@ let updateLocalStorage = () => {
   localStorage.clear();
 
   let ideaStorage = [];
-  let childIdeaTitle = document.getElementById('ideaBox').getElementsByTagName('h2');
+  let childIdeaTitle = document.getElementById('ideaBox').getElementsByClassName('titre');
   let descriptionStorage = [];
-  let childIdeaDescription = document.getElementById('ideaBox').getElementsByTagName('p');
+  let childIdeaDescription = document.getElementById('ideaBox').getElementsByClassName('paragrahe');
 
 
   for( let i = 0; i < childIdeaTitle.length; i++) {
@@ -46,7 +50,7 @@ let updateLocalStorage = () => {
     };
 
   for( let i = 0; i < childIdeaDescription.length; i++) {
-      descriptionStorage.push(childIdeaDescription[i].innerText)
+      descriptionStorage.push(childIdeaDescription[i].innerHTML)
     };
 
   for (let i = 0; i < ideaStorage.length; i++) {
@@ -75,16 +79,19 @@ let importLocalStorage = () => {
       let contentDiv = document.getElementById("ideaBox");
       let newHeading = document.createElement("h2");
       let newParagraph = document.createElement("p");
+      newHeading.className = "titre";
+      newParagraph.className = "paragrahe";
       contentDiv.appendChild(newHeading);
       newHeading.innerText = localStorageTitle[i];
       contentDiv.appendChild(newParagraph);
-      newParagraph.innerText = localStorageDescription[i];
+      newParagraph.innerHTML = localStorageDescription[i];
     }
   } else {
     return;
   }
 };
-localStorage.clear();
+//localStorage.clear();
+
 // Import du local storage se lance au load de la fenêtre.
 window.onload = function() {
   importLocalStorage();
