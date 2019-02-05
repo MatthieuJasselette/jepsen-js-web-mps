@@ -17,6 +17,8 @@ let headingArray = [];
 let paragraphArray = [];
 let commentArray = [];
 
+//code pour update les arrays avec le contenu local-storage
+
 //fonctionne /intégrer les éléments à un array.
 let addNewIdea = () => {
   let projectNumber = headingArray.length;
@@ -32,9 +34,9 @@ let addNewIdea = () => {
     newHeading.setAttribute("data-target", "#displayModal");
     newHeading.setAttribute("name", "display");
     //newHeading.setAttribute("id", "idHeading"+projectNumber);
-    newHeading.addEventListener('click', () => {
+    newHeading.onclick = () => {
       displayProject(projectNumber);
-    });
+    };
   let newParagraph = document.createElement("p");
     newParagraph.className = "displayParagraph"; //sert pour retrouver les éléments et les modifier dans la page
     //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
@@ -62,7 +64,7 @@ let displayProject = (index) => {
   };
   //code du bouton pour appeler deleteProject
   document.getElementsByClassName("deleteButton")[0].onclick = () => {
-    ;
+    removeProject(index);
   };
 };
 
@@ -86,9 +88,19 @@ let closeEditProject = (index) => {
 }
 
 let removeProject = (index) => {
-  //array.splice
-  //remove.element
-}
+  headingArray.splice(index, 1);
+  paragraphArray.splice(index,1);
+  let removeTarget = document.getElementsByClassName("ideaElement")[index]
+  //fonctionne
+  removeTarget.parentNode.removeChild(removeTarget);
+
+  let ideas = document.getElementsByClassName("ideaElement");
+  for(let i = index ; i < ideas.length ; i++) {
+    ideas[index].querySelector("button").onclick = () => {
+      displayProject(i);
+    };
+  };
+};
 
 /*code à Alex qui retire les éléments d'une modale.
 let element = document.querySelector("#displayBox"); while (element.firstChild) { element.removeChild(element.firstChild); }*/
