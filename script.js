@@ -26,7 +26,7 @@ let addNewIdea = () => {
   let ideaDiv = document.createElement("div");
     ideaDiv.className = "ideaElement";
   let newHeading = document.createElement("button");
-    newHeading.className = "newButton displayButton";
+    newHeading.className = "newButton displayHeading"; //sert pour retrouver les éléments et les modifier dans la page
     newHeading.setAttribute("type", "button");
     newHeading.setAttribute("data-toggle", "modal");
     newHeading.setAttribute("data-target", "#displayModal");
@@ -36,7 +36,7 @@ let addNewIdea = () => {
       displayProject(projectNumber);
     });
   let newParagraph = document.createElement("p");
-    newParagraph.className = "displayParagraph";
+    newParagraph.className = "displayParagraph"; //sert pour retrouver les éléments et les modifier dans la page
     //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
   contentDiv.appendChild(ideaDiv);
     ideaDiv.appendChild(newHeading);
@@ -52,12 +52,17 @@ let displayProject = (index) => {
   document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerText = paragraphArray[index];
   //code du bouton pour appeler openEditProject
+  // /!\ utiliser onclick plutôt que addEventListener car il ne s'accumule pas.
   document.getElementsByClassName("openEditButton")[0].onclick = () => {
     openEditProject(index);
   };
   //code du bouton pour appeler closeEditProject
   document.getElementsByClassName("closeEditButton")[0].onclick = () => {
     closeEditProject(index);
+  };
+  //code du bouton pour appeler deleteProject
+  document.getElementsByClassName("deleteButton")[0].onclick = () => {
+    ;
   };
 };
 
@@ -76,8 +81,13 @@ let closeEditProject = (index) => {
   document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerText = paragraphArray[index];
   displayProject(index);
-  document.getElementsByClassName("displayButton")[index].innerText = headingArray[index];
+  document.getElementsByClassName("displayHeading")[index].innerText = headingArray[index];
   document.getElementsByClassName("displayParagraph")[index].innerText = paragraphArray[index]
+}
+
+let removeProject = (index) => {
+  //array.splice
+  //remove.element
 }
 
 /*code à Alex qui retire les éléments d'une modale.
