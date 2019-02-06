@@ -17,13 +17,14 @@ import {markdown} from 'markdown';
 //Arrays pour stocker les éléments
 let headingArray = [];
 let paragraphArray = [];
-let commentArray = [];
+let commentBoxArray = [];
 
 // Fait apparaître la modale qui permet d'ajouter une idée.
 let addNewIdea = () => {
       let projectNumber = headingArray.length;
       headingArray.push(document.getElementById("addIdeaName").value);
       paragraphArray.push(document.getElementById("addIdeaDescription").value)
+      commentBoxArray.push([]);
       let contentDiv = document.getElementById("ideaBox");
       let ideaDiv = document.createElement("div");
         ideaDiv.className = "ideaElement";
@@ -49,6 +50,15 @@ let displayProject = (index) => {
   //remplit les champs vides de la modale
   document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerHTML = markdown.toHTML(paragraphArray[index]);
+  let comments = commentBoxArray[index];
+  console.log(commentBoxArray, index);
+  let commentDiv = document.getElementById("commentBox")
+  commentDiv.innerHTML = "";
+  for(let comment of comments){
+    let newComment = document.createElement("p");
+    newComment.innerText =  comment;
+    commentDiv.appendChild(newComment);
+  }
   //code du bouton pour appeler openEditProject /!\ utiliser onclick plutôt que addEventListener car il ne s'accumule pas.
   document.getElementsByClassName("openEditButton")[0].onclick = () => {
     openEditProject(index);
@@ -60,6 +70,11 @@ let displayProject = (index) => {
   //code du bouton pour appeler deleteProject
   document.getElementsByClassName("deleteButton")[0].onclick = () => {
     removeProject(index);
+  };
+  //code du bouton pour appeler addComment
+  document.getElementsByClassName("commentButton")[0].onclick = () => {
+    addComment(index);
+    document.getElementById("commentIdea").value = '';
   };
 };
 
@@ -92,15 +107,11 @@ let removeProject = (index) => {
 };
 
 //à peaufiner
-// let addComment = () => {
-//   //commentArray.push() ;
-//   let commentDiv = document.getElementById("commentBox");
-//   let newComment = document.createElement("p");
-//   commentDiv.appendChild(newComment);
-//   newComment.innerText = document.getElementById("commentIdea").value;
-// };
-
-//let ideaStorage = []; Possiblement à virer, pas encore certain
+let addComment = (index) => {
+  let commentArray = commentBoxArray[index]
+  commentArray.push(document.getElementById("commentIdea").value)
+  displayProject(index)
+};
 
 //code du bouton pour appeler addNewIdea
 
@@ -110,17 +121,17 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
   document.getElementById("addIdeaDescription").value = null;
 });
 
-// //code du bouton pour appeler addComment
-// document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
-//   addComment();
-//   document.getElementById("commentIdea").value = '';
-// });
+
 
 //  Fction pour clear le local storage et réenregistrer les éléments présents sur la page.
 let updateLocalStorage = () => {
   localStorage.clear();
   for (let i = 0; i < headingArray.length; i++) {
-    localStorage.setItem(headingArray[i], paragraphArray[i]);
+    let projectContent = {
+      description : paragraphArray[i],
+      comments : commentBoxArray[i]
+    };
+    localStorage.setItem(headingArray[i], JSON.stringify(projectContent));
   };
 };
 
@@ -135,10 +146,13 @@ window.addEventListener("beforeunload", () => {
 let importLocalStorage = () => {
   headingArray = [];
   paragraphArray = [];
+  commentBoxArray = [];
 
   for (let i = 0; i < localStorage.length; i++) {
     headingArray.push(localStorage.key(i));
-    paragraphArray.push (localStorage.getItem(localStorage.key(i)));
+    let tempProjectContent = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    paragraphArray.push(tempProjectContent.description);
+    commentBoxArray.push(tempProjectContent.comments);
   }
 
   if (localStorage.length > 0) {
