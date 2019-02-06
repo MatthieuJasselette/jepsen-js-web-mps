@@ -90,7 +90,7 @@ let importLocalStorage = () => {
     return;
   }
 };
-//localStorage.clear();
+  //localStorage.clear();
 
 // Import du local storage se lance au load de la fenêtre.
 window.onload = function() {
