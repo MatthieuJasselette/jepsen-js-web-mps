@@ -42,7 +42,7 @@ let addNewIdea = () => {
         ideaDiv.appendChild(newHeading);
           newHeading.innerText = headingArray[projectNumber];
         ideaDiv.appendChild(newParagraph);
-          newParagraph.innerHTML = markdown.toHTML(document.getElementById("addIdeaDescription").value);
+          newParagraph.innerHTML = markdown.toHTML(paragraphArray[projectNumber]);
 };
 
 let displayProject = (index) => {
@@ -120,22 +120,8 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
 //  Fction pour clear le local storage et réenregistrer les éléments présents sur la page.
 let updateLocalStorage = () => {
   localStorage.clear();
-
-  let ideaStorage = [];
-  let descriptionStorage = [];
-  let childIdeaTitle = document.getElementById('ideaBox').getElementsByClassName('titre');
-  let childIdeaDescription = document.getElementById('ideaBox').getElementsByClassName('paragraphe');
-
-  for( let i = 0; i < childIdeaTitle.length; i++) {
-      ideaStorage.push(childIdeaTitle[i].innerText)
-    };
-
-  for( let i = 0; i < childIdeaDescription.length; i++) {
-      descriptionStorage.push(childIdeaDescription[i].innerHTML)
-    };
-
-  for (let i = 0; i < ideaStorage.length; i++) {
-    localStorage.setItem(ideaStorage[i], descriptionStorage[i]);
+  for (let i = 0; i < headingArray.length; i++) {
+    localStorage.setItem(headingArray[i], paragraphArray[i]);
   };
 };
 
@@ -148,15 +134,16 @@ window.addEventListener("beforeunload", () => {
 
 //Fonction pour importer le localStorage dans la div IdeaBox
 let importLocalStorage = () => {
-  let localStorageTitle = [];
-  let localStorageDescription = [];
+  headingArray = [];
+  paragraphArray = [];
 
   for (let i = 0; i < localStorage.length; i++) {
-    localStorageTitle.push (localStorage.key(i));
-    localStorageDescription.push (localStorage.getItem(localStorage.key(i)));
+    headingArray.push(localStorage.key(i));
+    paragraphArray.push (localStorage.getItem(localStorage.key(i)));
   }
+
   if (localStorage.length > 0) {
-    for (let i = 0; i < localStorageTitle.length; i++) {
+    for (let i = 0; i < headingArray.length; i++) {
       let contentDiv = document.getElementById("ideaBox");
       let ideaDiv = document.createElement("div");
       ideaDiv.className = "ideaElement";
@@ -175,16 +162,14 @@ let importLocalStorage = () => {
       newParagraph.className = "paragraphe";
       contentDiv.appendChild(ideaDiv);
       ideaDiv.appendChild(newHeading);
-      newHeading.innerText = localStorageTitle[i];
+      newHeading.innerText = headingArray[i];
       ideaDiv.appendChild(newParagraph);
-      newParagraph.innerHTML = localStorageDescription[i];
+      newParagraph.innerHTML = markdown.toHTML(paragraphArray[i]);
     }
   } else {
     return;
   }
 };
-//localStorage.clear();
-
 // Import du local storage se lance au load de la fenêtre.
 window.onload = function() {
   importLocalStorage();
