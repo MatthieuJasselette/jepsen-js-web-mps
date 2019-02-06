@@ -161,7 +161,8 @@ let importLocalStorage = () => {
        displayProject(i);
       };
       let newParagraph = document.createElement("p");
-      newParagraph.className = "displayParagraph paragraphe";
+      newHeading.className = "titre";
+      newParagraph.className = "paragraphe";
       contentDiv.appendChild(ideaDiv);
       ideaDiv.appendChild(newHeading);
       newHeading.innerText = headingArray[i];
