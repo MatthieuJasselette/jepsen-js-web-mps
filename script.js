@@ -96,6 +96,7 @@ let closeEditProject = (index) => {
 let removeProject = (index) => {
   headingArray.splice(index, 1);
   paragraphArray.splice(index,1);
+  commentBoxArray.splice(index, 1);
   let removeTarget = document.getElementsByClassName("ideaElement")[index]
   removeTarget.parentNode.removeChild(removeTarget);
   let ideas = document.getElementsByClassName("ideaElement");
