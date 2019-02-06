@@ -74,7 +74,7 @@ let closeEditProject = (index) => {
   document.getElementById("displayBox").innerHTML = '<h5 id="displayName"></h5>  <p id="displayDescription"></p>'
   document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerHTML = markdown.toHTML(paragraphArray[index]);
-  displayProject(index);
+  //displayProject(index);
   document.getElementsByClassName("displayHeading")[index].innerText = headingArray[index];
   document.getElementsByClassName("displayParagraph")[index].innerHTML = markdown.toHTML(paragraphArray[index]);
 }
@@ -158,8 +158,7 @@ let importLocalStorage = () => {
        displayProject(i);
       };
       let newParagraph = document.createElement("p");
-      newHeading.className = "titre";
-      newParagraph.className = "paragraphe";
+      newParagraph.className = "displayParagraph paragraphe";
       contentDiv.appendChild(ideaDiv);
       ideaDiv.appendChild(newHeading);
       newHeading.innerText = headingArray[i];
