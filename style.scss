@@ -25,14 +25,6 @@ background: radial-gradient(to bottom, #FC0101, #000000);
   font-family: 'Shojumaru', cursive;
   text-shadow: orange 1px 0 10px;
 }
-.titre{
-  color:black;
-  font-family: 'Shojumaru', cursive;
-  border-radius: 12px;
-  background: #FC0101;
-  background: radial-gradient(#FC0101, #000000);
-  border-color: black;
-}
 p{
   color:black;
   font-family: 'Shojumaru', cursive;
@@ -64,6 +56,13 @@ p{
   font-size: 20px;
   float: right;
   margin-top:-12px;
-  box-shadow: orange 1px 0 10px;
 
+}
+.displayHeading{
+  color:black;
+  font-family: 'Shojumaru', cursive;
+  border-radius: 12px;
+  background: #FC0101;
+  background: radial-gradient(#FC0101, #000000);
+  border-color: black;
 }
