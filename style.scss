@@ -65,4 +65,9 @@ p{
   background: #FC0101;
   background: radial-gradient(#FC0101, #000000);
   border-color: black;
+  margin : auto;
+}
+.ideaElement{
+  display:flex;
+  flex-direction: column;
 }
