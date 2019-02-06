@@ -74,7 +74,6 @@ let closeEditProject = (index) => {
   document.getElementById("displayBox").innerHTML = '<h5 id="displayName"></h5>  <p id="displayDescription"></p>'
   document.getElementById("displayName").innerText = headingArray[index];
   document.getElementById("displayDescription").innerHTML = markdown.toHTML(paragraphArray[index]);
-  //displayProject(index);
   document.getElementsByClassName("displayHeading")[index].innerText = headingArray[index];
   document.getElementsByClassName("displayParagraph")[index].innerHTML = markdown.toHTML(paragraphArray[index]);
 }
@@ -121,7 +120,11 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
 let updateLocalStorage = () => {
   localStorage.clear();
   for (let i = 0; i < headingArray.length; i++) {
-    localStorage.setItem(headingArray[i], paragraphArray[i]);
+    /*let obj = {
+      parag: paragraphArray[i],
+      comment:
+    }*/
+    localStorage.setItem(headingArray[i], /*JSON.stringify(obj)*/ paragraphArray[i]);
   };
 };
 
