@@ -120,11 +120,7 @@ document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', 
 let updateLocalStorage = () => {
   localStorage.clear();
   for (let i = 0; i < headingArray.length; i++) {
-    /*let obj = {
-      parag: paragraphArray[i],
-      comment:
-    }*/
-    localStorage.setItem(headingArray[i], /*JSON.stringify(obj)*/ paragraphArray[i]);
+    localStorage.setItem(headingArray[i], paragraphArray[i]);
   };
 };
 
@@ -161,8 +157,7 @@ let importLocalStorage = () => {
        displayProject(i);
       };
       let newParagraph = document.createElement("p");
-      newHeading.className = "titre";
-      newParagraph.className = "paragraphe";
+      newParagraph.className = "displayParagraph paragraphe";
       contentDiv.appendChild(ideaDiv);
       ideaDiv.appendChild(newHeading);
       newHeading.innerText = headingArray[i];
