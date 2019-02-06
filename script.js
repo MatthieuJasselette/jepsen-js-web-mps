@@ -7,6 +7,8 @@ import 'bootstrap';
 
 // import the style
 import "./style.scss";
+//import markdown
+import {markdown} from 'markdown';
 
 /*
   Put the JavaScript code you want below.
@@ -17,13 +19,8 @@ let headingArray = [];
 let paragraphArray = [];
 let commentArray = [];
 
-//code pour update les arrays avec le contenu local-storage
-
-//fonctionne /intégrer les éléments à un array.
+// Fait apparaître la modale qui permet d'ajouter une idée.
 let addNewIdea = () => {
-    /*if (document.getElementById("addIdeaName").value === null ){
-      return;
-    } else {*/
       let projectNumber = headingArray.length;
       headingArray.push(document.getElementById("addIdeaName").value);
       paragraphArray.push(document.getElementById("addIdeaDescription").value)
@@ -31,35 +28,28 @@ let addNewIdea = () => {
       let ideaDiv = document.createElement("div");
         ideaDiv.className = "ideaElement";
       let newHeading = document.createElement("button");
-        newHeading.className = "newButton displayHeading"; //sert pour retrouver les éléments et les modifier dans la page
+        newHeading.className = "newButton displayHeading titre";
         newHeading.setAttribute("type", "button");
         newHeading.setAttribute("data-toggle", "modal");
         newHeading.setAttribute("data-target", "#displayModal");
         newHeading.setAttribute("name", "display");
-        //newHeading.setAttribute("id", "idHeading"+projectNumber);
-        newHeading.onclick = () => {
-          //ouvrir modale ?
+        newHeading.onclick = () => {  //ajouter script pou ouvrir modale ?
          displayProject(projectNumber);
-        };
+       };
       let newParagraph = document.createElement("p");
-        newParagraph.className = "displayParagraph"; //sert pour retrouver les éléments et les modifier dans la page
-        //newParagraph.setAttribute("id", "idParagraph"+projectNumber)
+        newParagraph.className = "displayParagraph paragraphe";
       contentDiv.appendChild(ideaDiv);
         ideaDiv.appendChild(newHeading);
           newHeading.innerText = headingArray[projectNumber];
         ideaDiv.appendChild(newParagraph);
-          newParagraph.innerText = paragraphArray[projectNumber];
-    /*}*/
+          newParagraph.innerHTML = markdown.toHTML(document.getElementById("addIdeaDescription").value);
 };
 
-
-//fonctionne
 let displayProject = (index) => {
   //remplit les champs vides de la modale
   document.getElementById("displayName").innerText = headingArray[index];
-  document.getElementById("displayDescription").innerText = paragraphArray[index];
-  //code du bouton pour appeler openEditProject
-  // /!\ utiliser onclick plutôt que addEventListener car il ne s'accumule pas.
+  document.getElementById("displayDescription").innerHTML = markdown.toHTML(paragraphArray[index]);
+  //code du bouton pour appeler openEditProject /!\ utiliser onclick plutôt que addEventListener car il ne s'accumule pas.
   document.getElementsByClassName("openEditButton")[0].onclick = () => {
     openEditProject(index);
   };
@@ -73,30 +63,26 @@ let displayProject = (index) => {
   };
 };
 
-//code du bouton "Edit your project"
 let openEditProject = (index) => {
   document.getElementById("displayName").innerHTML = '<input type="text" id="editHeading" value="'+headingArray[index]+'">';
   document.getElementById("displayDescription").innerHTML = '<input type="text" id="editDescription" value="'+paragraphArray[index]+'">';
 };
 
-
-//code du bouton "Submit your edited project"
 let closeEditProject = (index) => {
   headingArray[index] = document.getElementById("editHeading").value;
   paragraphArray[index] = document.getElementById("editDescription").value;
   document.getElementById("displayBox").innerHTML = '<h5 id="displayName"></h5>  <p id="displayDescription"></p>'
   document.getElementById("displayName").innerText = headingArray[index];
-  document.getElementById("displayDescription").innerText = paragraphArray[index];
+  document.getElementById("displayDescription").innerHTML = markdown.toHTML(paragraphArray[index]);
   displayProject(index);
   document.getElementsByClassName("displayHeading")[index].innerText = headingArray[index];
-  document.getElementsByClassName("displayParagraph")[index].innerText = paragraphArray[index]
+  document.getElementsByClassName("displayParagraph")[index].innerHTML = markdown.toHTML(paragraphArray[index]);
 }
 
 let removeProject = (index) => {
   headingArray.splice(index, 1);
   paragraphArray.splice(index,1);
   let removeTarget = document.getElementsByClassName("ideaElement")[index]
-  //fonctionne
   removeTarget.parentNode.removeChild(removeTarget);
   let ideas = document.getElementsByClassName("ideaElement");
   for(let i = index ; i < ideas.length ; i++) {
@@ -106,39 +92,100 @@ let removeProject = (index) => {
   }
 };
 
-/*code à Alex qui retire les éléments d'une modale.
-let element = document.querySelector("#displayBox"); while (element.firstChild) { element.removeChild(element.firstChild); }*/
+//à peaufiner
+// let addComment = () => {
+//   //commentArray.push() ;
+//   let commentDiv = document.getElementById("commentBox");
+//   let newComment = document.createElement("p");
+//   commentDiv.appendChild(newComment);
+//   newComment.innerText = document.getElementById("commentIdea").value;
+// };
 
-//fonctionne
-let addComment = () => {
-  //commentArray.push() ;
-  let commentDiv = document.getElementById("commentBox");
-  let newComment = document.createElement("p");
-  commentDiv.appendChild(newComment);
-  newComment.innerText = document.getElementById("commentIdea").value;
-};
-
-let ideaStorage = [];
+//let ideaStorage = []; Possiblement à virer, pas encore certain
 
 //code du bouton pour appeler addNewIdea
+
 document.getElementsByClassName("btn btn-primary")[0].addEventListener('click', () => {
   addNewIdea();
   document.getElementById("addIdeaName").value = null;
   document.getElementById("addIdeaDescription").value = null;
 });
 
-//code du bouton pour appeler addComment
-document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
-  addComment();
-  document.getElementById("commentIdea").value = '';
+// //code du bouton pour appeler addComment
+// document.getElementsByClassName("commentButton")[0].addEventListener('click', () => {
+//   addComment();
+//   document.getElementById("commentIdea").value = '';
+// });
+
+//  Fction pour clear le local storage et réenregistrer les éléments présents sur la page.
+let updateLocalStorage = () => {
+  localStorage.clear();
+
+  let ideaStorage = [];
+  let descriptionStorage = [];
+  let childIdeaTitle = document.getElementById('ideaBox').getElementsByClassName('titre');
+  let childIdeaDescription = document.getElementById('ideaBox').getElementsByClassName('paragraphe');
+
+  for( let i = 0; i < childIdeaTitle.length; i++) {
+      ideaStorage.push(childIdeaTitle[i].innerText)
+    };
+
+  for( let i = 0; i < childIdeaDescription.length; i++) {
+      descriptionStorage.push(childIdeaDescription[i].innerHTML)
+    };
+
+  for (let i = 0; i < ideaStorage.length; i++) {
+    localStorage.setItem(ideaStorage[i], descriptionStorage[i]);
+  };
+};
+
+// Update du local storage uniquement lorsqu'on quitte ou reload la page.
+window.addEventListener("beforeunload", () => {
+  updateLocalStorage()
 });
 
-//code du bouton pour appeler openEditProject
-// document.getElementsByClassName("openEditButton")[0].addEventListener('click', () => {
-//   openEditProject();
-// });
 
-// //code du bouton pour appeler closeEditProject
-// document.getElementsByClassName("closeEditButton")[0].addEventListener('click', () => {
-//   closeEditProject();
-// });
+
+//Fonction pour importer le localStorage dans la div IdeaBox
+let importLocalStorage = () => {
+  let localStorageTitle = [];
+  let localStorageDescription = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    localStorageTitle.push (localStorage.key(i));
+    localStorageDescription.push (localStorage.getItem(localStorage.key(i)));
+  }
+  if (localStorage.length > 0) {
+    for (let i = 0; i < localStorageTitle.length; i++) {
+      let contentDiv = document.getElementById("ideaBox");
+      let ideaDiv = document.createElement("div");
+      ideaDiv.className = "ideaElement";
+      let newHeading = document.createElement("button");
+      newHeading.className = "newButton displayHeading titre"; //sert pour retrouver les éléments et les modifier dans la page
+      newHeading.setAttribute("type", "button");
+      newHeading.setAttribute("data-toggle", "modal");
+      newHeading.setAttribute("data-target", "#displayModal");
+      newHeading.setAttribute("name", "display");
+      newHeading.onclick = () => {
+        //ouvrir modale ?
+       displayProject(i);
+      };
+      let newParagraph = document.createElement("p");
+      newHeading.className = "titre";
+      newParagraph.className = "paragraphe";
+      contentDiv.appendChild(ideaDiv);
+      ideaDiv.appendChild(newHeading);
+      newHeading.innerText = localStorageTitle[i];
+      ideaDiv.appendChild(newParagraph);
+      newParagraph.innerHTML = localStorageDescription[i];
+    }
+  } else {
+    return;
+  }
+};
+//localStorage.clear();
+
+// Import du local storage se lance au load de la fenêtre.
+window.onload = function() {
+  importLocalStorage();
+} ;
